@@ -1,9 +1,9 @@
 To run locally, run
-### 'npm install'
+### `npm install`
 Then 
-### 'npm start'
+### `npm start`
 
 To deploy, run
-### 'npm build'
+### `npm build`
 Then
-### 'gcloud app deploy'
+### `gcloud app deploy`
