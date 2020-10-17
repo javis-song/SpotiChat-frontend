@@ -28,7 +28,11 @@ class App extends React.Component {
         <div className="app-container">
           <Header />
           {/*<Footer />*/}
-          <ChatRoom />
+
+          <div className="chatbox">
+            <ChatRoom />
+          </div>
+
         </div>
       </div>
     );

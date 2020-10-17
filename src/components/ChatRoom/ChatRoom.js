@@ -69,7 +69,7 @@ class ChatRoom extends Component {
     return (
       <div className="ChatRoom">
         <div className="ChatRoom-header">
-          <h1>My Chat App</h1>
+          <h1>Chat Room</h1>
         </div>
         <Messages
           messages={this.state.messages}
