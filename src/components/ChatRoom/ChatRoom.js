@@ -66,6 +66,7 @@ class ChatRoom extends Component {
   }
 
   render() {
+    //console.log(this.props);
     return (
       <div className="ChatRoom">
         <div className="ChatRoom-header">

@@ -62,6 +62,7 @@ class App extends React.Component {
       this.getTopArtist(_token);
       // this.getRecommend(_token);
       this.getCurrentlyPlaying(_token);
+      this.getUsername(_token);
     }
     
     // set interval for polling every 5 seconds
@@ -171,6 +172,22 @@ class App extends React.Component {
 
   }
 
+  getUsername(token){
+    $.ajax({
+      url: "https://api.spotify.com/v1/me",
+      type: "GET",
+      beforeSend: xhr => {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+      },
+      success:data=>{
+        console.log(data.display_name);
+        this.setState({
+          username: data.display_name
+        })
+      }
+  });
+
+  }
   addTrackstoQueue(token, tracks){
   var tracksId = [];
   tracks.forEach(function(item, index){
@@ -209,9 +226,9 @@ class App extends React.Component {
               Login to Spotify
             </a>
           )}
-          <div>
-          
-        {this.state.token && !this.state.no_data && (
+
+        <div className="player"> 
+          {this.state.token && !this.state.no_data && (
             <Player
               item={this.state.item}
               is_playing={this.state.is_playing}
@@ -223,13 +240,12 @@ class App extends React.Component {
               You need to be playing a song on Spotify, for something to appear here.
             </p>
           )}
-        
-          </div>
+        </div>
           {/*<Footer />*/}
 
           {this.state.token && !this.state.no_data && (
           <div className="chatbox">
-            <ChatRoom />
+            <ChatRoom username={this.state.username}/>
           </div>
           )}
         </div>
