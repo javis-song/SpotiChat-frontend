@@ -2,11 +2,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: 75vh;
+  /*top: 20%;*/
+  /*bottom: 20%;*/
+  /*width:30% ;*/
+  /*height: 70%;*/
+  /*overflow-y: auto;*/
 }
 
 .ChatRoom-header {
-  background-color: #262626;
+  /*background-color: #262626;*/
   overflow: visible;
   width: 100%;
   text-align: center;

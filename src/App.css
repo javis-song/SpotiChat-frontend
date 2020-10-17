@@ -49,6 +49,16 @@ body {
   position: relative;
 }
 
+.chatbox {
+  position: fixed;
+  right: 10%;
+  top: 20%;
+  /*bottom: 20%;*/
+  width:30%;
+  /*height: 70%;*/
+  /*overflow-y: auto;*/
+}
+
 .left-side-section {
   position: fixed;
   top: 10px;
