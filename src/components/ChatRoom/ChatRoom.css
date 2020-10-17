@@ -91,7 +91,7 @@ input {
   border: 1px solid white;
   flex-grow: 1;
   background-color: black;
-
+color: white;
 }
 
 button {
