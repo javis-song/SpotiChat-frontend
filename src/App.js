@@ -226,9 +226,11 @@ class App extends React.Component {
         
           </div>
           {/*<Footer />*/}
-          {/*<ChatRoom />*/}
+
           {this.state.token && !this.state.no_data && (
+          <div className="chatbox">
             <ChatRoom />
+          </div>
           )}
         </div>
       </div>
