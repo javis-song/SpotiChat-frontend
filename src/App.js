@@ -7,15 +7,18 @@ import Footer from './components/Footer/index';
 const url = "http://127.0.0.1:8080";
 
 class App extends React.Component {
+  state = {
+    username: "song",
+  }
   componentDidMount() {
+
     const socket = socketIOClient(url);
-    socket.emit('chat message', "client");
+    socket.emit("username", this.state.username);
     socket.on("chat message", data => {
       console.log(data);
     });
-
+    socket.emit('chat message', "hello");
     // CLEAN UP THE EFFECT
-    return () => socket.disconnect();
   }
   render() {
     return (
