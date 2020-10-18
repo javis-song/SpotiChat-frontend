@@ -332,7 +332,7 @@ class App extends React.Component {
           
             {this.state.no_data && (
               <p>
-                You need to be playing a song on Spotify, for something to appear here.
+                You need to be playing a song on Spotify desktop app, for something to appear here.
               </p>
             )}
           </div>
