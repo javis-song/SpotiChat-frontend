@@ -8,6 +8,10 @@ import Header from './components/Header/index';
 import Footer from './components/Footer/index';
 import ChatRoom from "./components/ChatRoom/ChatRoom";
 import Player from "./components/Player/Player"
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Icon from '@material-ui/core/Icon';
+import SaveIcon from '@material-ui/icons/Save';
 
 
 const url = "http://127.0.0.1:8080";
@@ -35,7 +39,8 @@ class App extends React.Component {
       active_devices: [],
       top_artist:[],
       recommend_tracks:[],
-      username:null
+      username:null,
+      current_id:null
     };
 
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
@@ -115,8 +120,9 @@ class App extends React.Component {
           item: data.item,
           is_playing: data.is_playing,
           progress_ms: data.progress_ms,
-          no_data: false/* We need to "reset" the boolean, in case the
+          no_data: false,/* We need to "reset" the boolean, in case the
                             user does not give F5 and has opened his Spotify. */
+          current_id: data.item.id
         
         });
       }
@@ -210,6 +216,46 @@ class App extends React.Component {
           console.log('SUCCESS');;})
   }
 
+  handleClick(token,id){
+    console.log(id);
+
+    $.ajax({
+      url: "https://api.spotify.com/v1/me/player",
+      type: "GET",
+      beforeSend: xhr => {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+      },
+      success: data => {
+        if(!data) {
+          this.setState({
+            no_data: true,
+          });
+          return;
+        }
+
+        var cur_id = data.item.id;
+
+        $.ajax({
+          type: "PUT",
+          url: "https://api.spotify.com/v1/me/tracks?ids="+cur_id,
+          //data:JSON.stringify({ids: id}),
+          contentType: "application/json",
+          beforeSend: xhr => {
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+          }
+          
+        }).done(function () {
+          console.log('SUCCESS');;})
+
+        
+      }
+    });
+
+    
+
+
+
+  }
   
   render() {
     return (
@@ -234,7 +280,20 @@ class App extends React.Component {
               is_playing={this.state.is_playing}
               progress_ms={this.state.progress_ms}
             />
+            
           )}
+          {this.state.token && !this.state.no_data && (
+          <Button
+              variant="contained"
+              color="black"
+              size="small"
+              className="button"
+              onClick={() => this.handleClick(this.state.token,this.state.current_id)}
+            startIcon={<SaveIcon />}
+            >
+              Save
+            </Button>
+            )}
           {this.state.no_data && (
             <p>
               You need to be playing a song on Spotify, for something to appear here.

@@ -44,7 +44,7 @@ class ChatRoom extends Component {
     }
   }
 
-  constructor() {
+  constructor(props) {
     super();
     this.drone = new window.Scaledrone("IWSTlGBpcJLDYyhH", {
       data: this.state.member
@@ -65,6 +65,12 @@ class ChatRoom extends Component {
     });
   }
 
+  // componentDidMount(){
+  //   console.log(props);
+  //   this.setState({
+  //     username: this.props
+  //   })
+  // }
   render() {
     //console.log(this.props);
     return (

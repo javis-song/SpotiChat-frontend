@@ -11,5 +11,6 @@ export const scopes = [
     "playlist-read-private",
     "playlist-read-collaborative",
     "user-read-email",
-    "user-read-private"
+    "user-read-private",
+    "user-library-modify"
 ];
