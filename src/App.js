@@ -316,16 +316,18 @@ class App extends React.Component {
                 progress_ms={this.state.progress_ms}
               />
             )}
+
             {this.state.token && !this.state.no_data && (
               <label htmlFor="icon-button-file">
-           <IconButton 
-              color="secondary"  
-              component="span" 
-              className="button" 
-              onClick={() => this.handleClick(this.state.token,this.state.current_id)}>
-          <FavoriteIcon />
-         </IconButton>
-         </label>
+              <IconButton
+                color="secondary"
+                component="span"
+                className="button"
+                onClick={() => this.handleClick(this.state.token,this.state.current_id)}>
+                <FavoriteIcon />
+              </IconButton>
+              </label>
+
             )}
           
             {this.state.no_data && (
