@@ -6,8 +6,15 @@
 	justify-content: space-between;
 	background: rgb(24, 24, 24);
 } */
+.if{
+  border:none;
+}
 
-
+.hd{
+  height:auto;
+  float:left; 
+  display:inline;
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 10vmin;
@@ -23,6 +30,7 @@
   justify-content: center;
   font-size: calc(60px + 2vmin);
   color: white;
+  padding-top: 5%;
 }
 
 .App-link {
