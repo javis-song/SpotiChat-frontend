@@ -66,11 +66,12 @@ class ChatRoom extends Component {
   }
 
   render() {
+    //console.log(this.props);
     return (
       <div className="ChatRoom">
-        <div className="ChatRoom-header">
-          <h1>Chat Room</h1>
-        </div>
+        {/*<div className="ChatRoom-header">*/}
+        {/*  <h1>Chat Room</h1>*/}
+        {/*</div>*/}
         <Messages
           messages={this.state.messages}
           currentMember={this.state.member}
