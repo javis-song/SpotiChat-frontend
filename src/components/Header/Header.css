@@ -10,11 +10,6 @@
   border:none;
 }
 
-.hd{
-  height:auto;
-  float:left; 
-  display:inline;
-}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 10vmin;

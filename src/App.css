@@ -49,10 +49,20 @@ body {
   position: relative;
 }
 
+.login {
+  position: fixed;
+  right: 30%;
+  bottom: 25%;
+  /*bottom: 20%;*/
+  width:30%;
+  /*height: 70%;*/
+  /*overflow-y: auto;*/
+}
+
 .chatbox {
   position: fixed;
   right: 10%;
-  top: 30%;
+  bottom: 5%;
   /*bottom: 20%;*/
   width:30%;
   /*height: 70%;*/
@@ -62,7 +72,7 @@ body {
 .player {
   position: fixed;
   left: 5%;
-  top:40%;
+  bottom:10%;
   /*bottom: 20%;*/
   /* width:30%; */
   /*height: 70%;*/
