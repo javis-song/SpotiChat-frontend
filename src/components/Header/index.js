@@ -6,7 +6,8 @@ const Header = () => {
     <div className="App">
         <header className="App-header">
           {/*<img src={logo} className="App-logo" alt="logo" />*/}
-            <h1>Now Playing</h1>
+            <h1>Now Playing...</h1>
+            {/* <iframe width="900" height="300"src="https://editor.p5js.org/p5user1/embed/aOT3dzdd1"></iframe> */}
         </header>
 
     </div>
