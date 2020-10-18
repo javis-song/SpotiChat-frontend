@@ -9,7 +9,8 @@ import Footer from './components/Footer/index';
 import ChatRoom from "./components/ChatRoom/ChatRoom";
 import Player from "./components/Player/Player"
 
-
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi();
 const url = "http://127.0.0.1:8080";
 
 class App extends React.Component {
@@ -35,7 +36,8 @@ class App extends React.Component {
       active_devices: [],
       top_artist:[],
       recommend_tracks:[],
-      username:null
+      username:null,
+      messages: []
     };
 
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
@@ -72,6 +74,20 @@ class App extends React.Component {
   componentWillUnmount() {
     // clear the interval to save resources
     clearInterval(this.interval);
+  }
+
+  connect(username) {
+    const socket = socketIOClient(url);
+    this.setState({
+      socket: socket
+    });
+    socket.emit("username", username);
+    socket.on("chat message", data => {
+      console.log("messages: " + this.state.messages);
+      this.setState({
+        messages: [...this.state.messages, data]
+      })
+    });
   }
 
   tick() {
@@ -181,6 +197,7 @@ class App extends React.Component {
       },
       success:data=>{
         console.log(data.display_name);
+        this.connect(data.display_name);
         this.setState({
           username: data.display_name
         })
