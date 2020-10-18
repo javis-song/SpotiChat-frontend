@@ -13,7 +13,7 @@ const Player = props => {
   };
 
   return (
-    <div className="App">
+    <div className="PlayerBox">
       <div className="main-wrapper">
         <div className="now-playing__img">
           <img src={props.item.album.images[0].url} />
