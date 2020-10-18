@@ -12,8 +12,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import IconButton from '@material-ui/core/IconButton';
 
-
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi();
 const url = "http://127.0.0.1:8080";
 
 class App extends React.Component {
@@ -40,7 +43,11 @@ class App extends React.Component {
       top_artist:[],
       recommend_tracks:[],
       username:null,
-      current_id:null
+
+      current_id:null,
+
+      messages: []
+
     };
 
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
@@ -77,6 +84,20 @@ class App extends React.Component {
   componentWillUnmount() {
     // clear the interval to save resources
     clearInterval(this.interval);
+  }
+
+  connect(username) {
+    const socket = socketIOClient(url);
+    this.setState({
+      socket: socket
+    });
+    socket.emit("username", username);
+    socket.on("chat message", data => {
+      console.log("messages: " + this.state.messages);
+      this.setState({
+        messages: [...this.state.messages, data]
+      })
+    });
   }
 
   tick() {
@@ -187,6 +208,7 @@ class App extends React.Component {
       },
       success:data=>{
         console.log(data.display_name);
+        this.connect(data.display_name);
         this.setState({
           username: data.display_name
         })
@@ -261,45 +283,57 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="app-container">
-          <Header />
-          {!this.state.token && (
-            <a
-              className="btn btn--loginApp-link"
-              href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                "%20"
-              )}&response_type=token&show_dialog=true`}
-            >
-              Login to Spotify
-            </a>
+
+          {!this.state.token &&(
+              <div className="spotichat--logo">
+                <iframe className="login--graph" width="900" height="300"
+                        src="https://editor.p5js.org/kelyosy/embed/j-Qt2_X26"></iframe>
+              </div>
           )}
 
-        <div className="player"> 
-          {this.state.token && !this.state.no_data && (
-            <Player
-              item={this.state.item}
-              is_playing={this.state.is_playing}
-              progress_ms={this.state.progress_ms}
-            />
-            
-          )}
-          {this.state.token && !this.state.no_data && (
-          <Button
-              variant="contained"
-              color="black"
-              size="small"
-              className="button"
-              onClick={() => this.handleClick(this.state.token,this.state.current_id)}
-            startIcon={<SaveIcon />}
-            >
-              Save
-            </Button>
+          <div className="login">
+            {!this.state.token && (
+                <a
+                    className="btn btn--login App-link"
+                    href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                        "%20"
+                    )}&response_type=token&show_dialog=true`}
+                >
+                  Login to Spotify
+                </a>
             )}
-          {this.state.no_data && (
-            <p>
-              You need to be playing a song on Spotify, for something to appear here.
-            </p>
+          </div>
+
+          {this.state.token &&(
+              <Header />
           )}
-        </div>
+
+          <div className="player">
+            {this.state.token && !this.state.no_data && (
+              <Player
+                item={this.state.item}
+                is_playing={this.state.is_playing}
+                progress_ms={this.state.progress_ms}
+              />
+            )}
+            {this.state.token && !this.state.no_data && (
+              <label htmlFor="icon-button-file">
+           <IconButton 
+              color="secondary"  
+              component="span" 
+              className="button" 
+              onClick={() => this.handleClick(this.state.token,this.state.current_id)}>
+          <FavoriteIcon />
+         </IconButton>
+         </label>
+            )}
+          
+            {this.state.no_data && (
+              <p>
+                You need to be playing a song on Spotify, for something to appear here.
+              </p>
+            )}
+          </div>
           {/*<Footer />*/}
 
           {this.state.token && !this.state.no_data && (

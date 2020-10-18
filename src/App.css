@@ -49,14 +49,34 @@ body {
   position: relative;
 }
 .button{
-  top: 20%;
-  left: -32%;
+  top: 0%;
+  left: 0%;
+}
+
+.spotichat--logo {
+  position: fixed;
+  right: 51%;
+  /*top: 30%;*/
+  bottom: 40%;
+  width:30%;
+  /*height: 70%;*/
+  /*overflow-y: auto;*/
+}
+
+.login {
+  position: fixed;
+  right: 30%;
+  bottom: 25%;
+  /*bottom: 20%;*/
+  width:30%;
+  /*height: 70%;*/
+  /*overflow-y: auto;*/
 }
 
 .chatbox {
   position: fixed;
   right: 10%;
-  top: 20%;
+  bottom: 5%;
   /*bottom: 20%;*/
   width:30%;
   /*height: 70%;*/
@@ -66,7 +86,8 @@ body {
 .player {
   position: fixed;
   left: 5%;
-  top: 50%;
+  /* top: 50%; */
+  bottom:2%;
   /*bottom: 20%;*/
   /* width:30%; */
   /*height: 70%;*/
@@ -93,4 +114,8 @@ body {
   position: relative;
   top: 50px;
   padding-bottom: 100px;
+}
+
+.login--graph{
+  border:none;
 }

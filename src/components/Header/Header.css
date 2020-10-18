@@ -6,9 +6,8 @@
 	justify-content: space-between;
 	background: rgb(24, 24, 24);
 } */
-
-.App {
-  text-align: center;
+.if{
+  border:none;
 }
 
 /* .App-logo {
@@ -18,14 +17,15 @@
 } */
 
 .App-header {
-  background-color: #282c34;
+  /*background-color: #282c34;*/
   min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(60px + 2vmin);
   color: white;
+  padding-top: 5%;
 }
 
 .App-link {
@@ -85,29 +85,6 @@ body {
   margin: 0 auto;
 }
 
-/** Background **/
-
-.background {
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-size: cover;
-  background-position: center center;
-  filter: blur(8em) opacity(0.6);
-  position: absolute;
-}
-
-.main-wrapper {
-  align-items: left;
-  display: flex;
-  height: 100%;
-  margin: 0 auto;
-  justify-content: left;
-  position: relative;
-  width: 80%;
-  z-index: 1;
-}
 
 .container {
   align-items: center;
@@ -119,3 +96,4 @@ body {
 .main-container {
   flex: 1;
 }
+
