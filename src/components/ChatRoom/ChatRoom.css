@@ -32,6 +32,7 @@
 .Messages-message {
   display: flex;
   margin-top: 10px;
+  font-family: 'Merriweather Sans', sans-serif;
 }
 
 .Messages-message.currentMember {
@@ -92,6 +93,7 @@ input {
   flex-grow: 1;
   background-color: black;
   color: white;
+  font-family: 'Merriweather Sans', sans-serif;
 }
 input[type=text]:focus{
   border:1px solid black;
