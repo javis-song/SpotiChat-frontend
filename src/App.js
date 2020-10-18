@@ -216,31 +216,34 @@ class App extends React.Component {
       <div className="App">
         <div className="app-container">
           <Header />
-          {!this.state.token && (
-            <a
-              className="btn btn--loginApp-link"
-              href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                "%20"
-              )}&response_type=token&show_dialog=true`}
-            >
-              Login to Spotify
-            </a>
-          )}
 
-        <div className="player"> 
-          {this.state.token && !this.state.no_data && (
-            <Player
-              item={this.state.item}
-              is_playing={this.state.is_playing}
-              progress_ms={this.state.progress_ms}
-            />
-          )}
-          {this.state.no_data && (
-            <p>
-              You need to be playing a song on Spotify, for something to appear here.
-            </p>
-          )}
-        </div>
+          <div className="login">
+            {!this.state.token && (
+                <a
+                    className="btn btn--login App-link"
+                    href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                        "%20"
+                    )}&response_type=token&show_dialog=true`}
+                >
+                  Login to Spotify
+                </a>
+            )}
+          </div>
+
+          <div className="player">
+            {this.state.token && !this.state.no_data && (
+              <Player
+                item={this.state.item}
+                is_playing={this.state.is_playing}
+                progress_ms={this.state.progress_ms}
+              />
+            )}
+            {this.state.no_data && (
+              <p>
+                You need to be playing a song on Spotify, for something to appear here.
+              </p>
+            )}
+          </div>
           {/*<Footer />*/}
 
           {this.state.token && !this.state.no_data && (

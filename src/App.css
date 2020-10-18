@@ -49,6 +49,16 @@ body {
   position: relative;
 }
 
+.login {
+  position: fixed;
+  right: 30%;
+  bottom: 25%;
+  /*bottom: 20%;*/
+  width:30%;
+  /*height: 70%;*/
+  /*overflow-y: auto;*/
+}
+
 .chatbox {
   position: fixed;
   right: 10%;
