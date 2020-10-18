@@ -215,7 +215,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="app-container">
-          <Header />
+
+          {!this.state.token &&(
+              <div className="spotichat--logo">
+                <iframe className="login--graph" width="900" height="300"
+                        src="https://editor.p5js.org/kelyosy/embed/j-Qt2_X26"></iframe>
+              </div>
+          )}
 
           <div className="login">
             {!this.state.token && (
@@ -229,6 +235,10 @@ class App extends React.Component {
                 </a>
             )}
           </div>
+
+          {this.state.token &&(
+              <Header />
+          )}
 
           <div className="player">
             {this.state.token && !this.state.no_data && (
