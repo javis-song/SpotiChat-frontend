@@ -37,42 +37,46 @@ function randomColor() {
 
 class ChatRoom extends Component {
   state = {
-    messages: [],
+    messages: [
+      {
+        text: "Please wait for others to come!", 
+        member: {self: false}
+      }],
     member: {
       username: randomName(),
       color: randomColor(),
     }
   }
 
-  constructor(props) {
-    super();
-    this.drone = new window.Scaledrone("IWSTlGBpcJLDYyhH", {
-      data: this.state.member
-    });
-    this.drone.on('open', error => {
-      if (error) {
-        return console.error(error);
-      }
-      const member = {...this.state.member};
-      member.id = this.drone.clientId;
-      this.setState({member});
-    });
-    const room = this.drone.subscribe("observable-room");
-    room.on('data', (data, member) => {
-      const messages = this.state.messages;
-      messages.push({member, text: data});
-      this.setState({messages});
-    });
-  }
-
-  // componentDidMount(){
-  //   console.log(props);
-  //   this.setState({
-  //     username: this.props
-  //   })
+  // constructor(props) {
+  //   super();
+  //   this.drone = new window.Scaledrone("IWSTlGBpcJLDYyhH", {
+  //     data: this.state.member
+  //   });
+  //   this.drone.on('open', error => {
+  //     if (error) {
+  //       return console.error(error);
+  //     }
+  //     const member = {...this.state.member};
+  //     member.id = this.drone.clientId;
+  //     this.setState({member});
+  //   });
+  //   const room = this.drone.subscribe("observable-room");
+  //   room.on('data', (data, member) => {
+  //     const messages = this.state.messages;
+  //     messages.push({member, text: data});
+  //     this.setState({messages});
+  //   });
   // }
+
+  // shouldComponentUpdate(newProps, newState) {
+  //   if (newState.messages.length === this.state.messages.length && newProps.socket === this.props.socket) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
   render() {
-    //console.log(this.props);
     return (
       <div className="ChatRoom">
         {/*<div className="ChatRoom-header">*/}
@@ -89,11 +93,42 @@ class ChatRoom extends Component {
     );
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.socket !== undefined && this.props.username !== null && (prevProps.socket !== this.props.socket || prevProps.username !== this.props.username)) {
+      const socket = this.props.socket;
+      socket.on("message", message => {
+        this.setState({
+          messages: [...this.state.messages, message]
+        })
+      });
+    }
+  }
+
   onSendMessage = (message) => {
-    this.drone.publish({
-      room: "observable-room",
-      message
-    });
+    const newMessage = {
+      member: {
+        self: true,
+        username: this.props.username,
+      },
+      text: message
+    };
+    this.setState({messages: [...this.state.messages, newMessage]});
+
+    let socket = this.props.socket;
+    if (socket === undefined) return;
+    let messageToOther = {
+      member: {
+        self: true,
+        username: this.props.username,
+      },
+      text: message
+    };
+    messageToOther.member.self = false;
+    socket.emit('message', messageToOther);
+    // this.drone.publish({
+    //   room: "observable-room",
+    //   message
+    // });
   }
 
 }

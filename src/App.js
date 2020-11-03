@@ -14,10 +14,12 @@ import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
+import * as syncServices from './syncServices.js';
 
 var SpotifyWebApi = require('spotify-web-api-node');
 var spotifyApi = new SpotifyWebApi();
-const url = "http://127.0.0.1:8080";
+// const url = "ws://127.0.0.1:8000";
+const cloudUrl = 'wss://spotichat-backend.com:443';
 
 class App extends React.Component {
   // state = {
@@ -55,13 +57,6 @@ class App extends React.Component {
   }
   componentDidMount() {
 
-    // const socket = socketIOClient(url);
-    // socket.emit("username", this.state.username);
-    // socket.on("chat message", data => {
-    //   console.log(data);
-    // });
-    // socket.emit('chat message', "hello");
-    // CLEAN UP THE EFFECT
     let _token = hash.access_token;
 
     if (_token) {
@@ -71,7 +66,7 @@ class App extends React.Component {
       });
       
       this.getDevices(_token);
-      this.getTopArtist(_token);
+      // this.getTopArtist(_token);
       // this.getRecommend(_token);
       this.getCurrentlyPlaying(_token);
       this.getUsername(_token);
@@ -87,17 +82,18 @@ class App extends React.Component {
   }
 
   connect(username) {
-    const socket = socketIOClient(url);
+    const socket = socketIOClient(cloudUrl);
     this.setState({
       socket: socket
     });
-    socket.emit("username", username);
-    socket.on("chat message", data => {
-      console.log("messages: " + this.state.messages);
-      this.setState({
-        messages: [...this.state.messages, data]
-      })
-    });
+    syncServices.getCurrentlyPlaying(this.state.token).then(data => {
+      if (data) {
+        socket.on('track', track => {
+          syncServices.addToQueue(this.state.token, track);
+        });
+        socket.emit("username", {username: username, track: data});
+      }
+    })
   }
 
   tick() {
@@ -223,19 +219,19 @@ class App extends React.Component {
   });
   console.log("trackId:",tracksId);
   $.ajax({
-          url: "https://api.spotify.com/v1/me/player/play",
-          type: "PUT",
-          beforeSend: xhr => {
-            xhr.setRequestHeader("Authorization", "Bearer " + token);
-          },
-          data:JSON.stringify({
-            uris: tracksId,
-            offset: {
-              position: 1
-            }
-          }),
-        }).done(function () {
-          console.log('SUCCESS');;})
+      url: "https://api.spotify.com/v1/me/player/play",
+      type: "PUT",
+      beforeSend: xhr => {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+      },
+      data:JSON.stringify({
+        uris: tracksId,
+        offset: {
+          position: 1
+        }
+      }),
+    }).done(function () {
+      console.log('SUCCESS');;})
   }
 
   handleClick(token,id){
@@ -268,15 +264,8 @@ class App extends React.Component {
           
         }).done(function () {
           console.log('SUCCESS');;})
-
-        
       }
     });
-
-    
-
-
-
   }
   
   render() {
@@ -340,7 +329,10 @@ class App extends React.Component {
 
           {this.state.token && !this.state.no_data && (
           <div className="chatbox">
-            <ChatRoom username={this.state.username}/>
+            <ChatRoom 
+              username={this.state.username}
+              socket={this.state.socket}
+            />
           </div>
           )}
         </div>

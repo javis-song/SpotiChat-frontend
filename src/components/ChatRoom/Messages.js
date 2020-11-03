@@ -13,19 +13,17 @@ class Messages extends Component {
 
   renderMessage(message) {
     const {member, text} = message;
-    const {currentMember} = this.props;
-    const messageFromMe = member.id === currentMember.id;
-    const className = messageFromMe ?
+    const className = member.self ?
       "Messages-message currentMember" : "Messages-message";
     return (
       <li className={className}>
       <span
         className="avatar"
-        style={{backgroundColor: member.clientData.color}}
+        // style={{backgroundColor: member.clientData.color}}
       />
         <div className="Message-content">
           <div className="username">
-            {member.clientData.username}
+            {member.username}
           </div>
           <div className="text">{text}</div>
         </div>
