@@ -4,7 +4,8 @@ import "./UserDetails.css";
 
 const UserDetails = (props) => (
   <div className="user-details-container">
-    <img alt="user" className="user-image" src={props.image} />
+    {props.image ? 
+    <img alt="user" className="user-image" src={props.image} /> : null}
     <p className="user-name">{props.username}</p>
   </div>
 );
