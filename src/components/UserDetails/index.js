@@ -1,14 +1,18 @@
-import UserDetails from "./component";
-import { connect } from "react-redux";
+import React from "react";
+import PropTypes from "prop-types";
+import "./UserDetails.css";
 
-const mapStateToProps = (state) => {
+const UserDetails = (props) => (
+  <div className="user-details-container">
+    <img alt="user" className="user-image" src={props.image} />
+    <p className="user-name">{props.username}</p>
+  </div>
+);
 
-	return {
-		displayName: state.userReducer.user ? state.userReducer.user.display_name : '',
-		userImage: state.userReducer.user && state.userReducer.user.images[0] ? state.userReducer.user.images[0].url : ''
-	};
 
+UserDetails.propTypes = {
+  userImage: PropTypes.string,
+  displayName: PropTypes.string
 };
 
-
-export default connect(mapStateToProps)(UserDetails);
+export default UserDetails;

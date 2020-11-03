@@ -48,8 +48,9 @@ class App extends React.Component {
 
       current_id:null,
 
-      messages: []
+      messages: [],
 
+      image: null
     };
 
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
@@ -64,7 +65,7 @@ class App extends React.Component {
       this.setState({
         token: _token
       });
-      
+      this.getPersonalInfo(_token);
       this.getDevices(_token);
       // this.getTopArtist(_token);
       // this.getRecommend(_token);
@@ -102,6 +103,22 @@ class App extends React.Component {
     }
   }
   
+  getPersonalInfo(access_token) {
+    $.ajax({
+      url: 'https://api.spotify.com/v1/me',
+      headers: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      success: (response) => {
+        if (response.images.length > 0) {
+          this.setState({
+            image: response.images[0]["url"]
+          });
+        }
+      }
+    });
+  }
+
   getDevices(token){
     $.ajax({
           url: "https://api.spotify.com/v1/me/player/devices",
@@ -275,8 +292,7 @@ class App extends React.Component {
 
           {!this.state.token &&(
               <div className="spotichat--logo">
-                <iframe className="login--graph" width="900" height="300"
-                        src="https://editor.p5js.org/kelyosy/embed/j-Qt2_X26"></iframe>
+                <iframe className="login--graph" src="https://editor.p5js.org/kelyosy/embed/j-Qt2_X26"></iframe>
               </div>
           )}
 
@@ -294,7 +310,7 @@ class App extends React.Component {
           </div>
 
           {this.state.token &&(
-              <Header />
+              <Header image={this.state.image} username={this.state.username} />
           )}
 
           <div className="player">

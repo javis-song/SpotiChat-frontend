@@ -2,27 +2,22 @@ import React from "react";
 import "./Header.css";
 import logo from "./logo.svg";
 import logo2 from "./spotichat.gif"
-const Header = () => {
+import UserDetails from '../UserDetails/index.js';
+
+const Header = (props) => {
   return (
-    <div className="App">
+    <div className="Header">
+      <UserDetails image={props.image} username={props.username} />
         {/* // <header className="App-header">
         //   <img src={logo2}  alt="logo" />
         // </header> */}
-      <header padding-top="10%" className="App-header" margin="0">
+      <header className="App-header">
         {/*<img src={logo} className="App-logo" alt="logo" />*/}
-        <div width="100vp">
-          <hr width="100%"></hr>
-
+          <hr></hr>
           <h1 >Now Playing.......</h1>
+          <hr class="hr"></hr>
 
-
-          <hr width="100%"></hr>
-        </div>
-
-
-
-
-        <iframe class="if" width="1000" height="50" src="https://editor.p5js.org/p5user1/embed/aOT3dzdd1"></iframe>
+        <iframe class="if" src="https://editor.p5js.org/p5user1/embed/aOT3dzdd1"></iframe>
 
       </header>
 

@@ -39,7 +39,7 @@ body {
     font-family: 'Proxima Nova', Georgia, sans-serif;
     background: rgb(1, 1, 1);
     color: #fff;
-    max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
     padding: 0;
 }
@@ -62,10 +62,10 @@ body {
 
 .spotichat--logo {
   position: fixed;
-  right: 51%;
-  /*top: 30%;*/
-  bottom: 40%;
-  width:30%;
+  left: 10%;
+  right: 10%;
+  top: 20%;
+  bottom: 50%;
   /*height: 70%;*/
   /*overflow-y: auto;*/
 }
@@ -124,5 +124,7 @@ body {
 }
 
 .login--graph{
+  width: 100%;
+  height: 100%;
   border:none;
 }

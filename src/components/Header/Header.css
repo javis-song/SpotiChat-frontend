@@ -6,8 +6,23 @@
 	justify-content: space-between;
 	background: rgb(24, 24, 24);
 } */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .if{
-  border:none;
+  border: none;
+  width: 100%;
+  height: 10%;
+  transform: translateY(-100%);
+}
+
+.hr, h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 /* .App-logo {
@@ -18,14 +33,11 @@
 
 .App-header {
   /*background-color: #282c34;*/
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(60px + 2vmin);
+  height: 70%;
+  width: 100%;
+  font-size: 250%;
   color: white;
-  padding-top: 5%;
+  text-align: center;
 }
 
 .App-link {
@@ -40,12 +52,6 @@
     transform: rotate(360deg);
   }
 } */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 html, body {
   height: 100%;
@@ -108,3 +114,6 @@ body {
   flex: 1;
 }
 
+.Header {
+  width: 100%
+}

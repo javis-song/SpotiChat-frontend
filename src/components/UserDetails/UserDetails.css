@@ -2,7 +2,8 @@
   display: flex;
   justify-content: flex-end;
   padding: 10px 0;
-  background: rgb(24, 24, 24);
+  background: black;
+  margin-right: 40px;
 }
 
 .user-image {
